@@ -1,73 +1,34 @@
-# crt-scout
+# 🔍 crt-scout — Blazing-fast subdomain discovery & reconnaissance
 
-**Fast subdomain discovery + live checking + wordlist generation** powered by [crt.name](https://crt.name).
+A modern Python rewrite of certificate transparency subdomain enumeration with async HTTP(S) live-checking, wordlist generation, and beautiful colored output.
 
-`crt-scout` queries the Certificate Transparency index, optionally verifies which hosts are actually alive, and can extract clean subdomain prefixes to help you build high-quality custom wordlists.
+## ⚡ Features
+• Async/concurrent checking — 50+ workers for lightning speed
+• Live host validation — HTTP/HTTPS probing with status codes  
+• Smart wordlist extraction — Pull unique subdomain prefixes for fuzzing
+• Progress indicators — Real-time progress during checks
+• Colored output — Green for live, red for dead, clean formatting
+• Flexible output — Save to file or stdout, show/hide dead hosts
 
----
+## 🚀 Usage
+  python crt-scout.py x.com -c -o live.txt -w words.txt
 
-## Features
+## 📦 Requirements: Python 3.8+, aiohttp
+  pip3 install -r requirements
 
-- ⚡ Extremely fast subdomain enumeration via crt.name
-- 🔍 Optional live host checking (HTTP/HTTPS) with customizable User-Agent
-- 📝 Automatic extraction of subdomain prefixes for wordlist building
-- 📁 Flexible output options (full list, live results, wordlist)
-- 🚀 Parallel checking for speed
-- 🆓 No API key required (1000 requests/IP/day free tier)
+## ➡️ Options
 
----
+| Flag | Description |
+|------|-------------|
+| `-c, --check` | Check which subdomains are alive |
+| `--https-only` | Only probe HTTPS (skip HTTP) |
+| `-o FILE` | Save results to file |
+| `-w FILE` | Extract subdomain prefixes to wordlist |
+| `--workers N` | Concurrent workers (default: 50) |
+| `--timeout N` | Connection timeout seconds (default: 5) |
+| `--show-dead` | Include dead hosts in output |
+| `-q, --quiet` | Suppress progress output |
 
-## Installation
 
-```bash
-git clone https://github.com/YOUR_USERNAME/crt-scout.git
-cd crt-scout
-chmod +x crt-scout.sh
-```
 
-## Options
-
-```
--c, --check
-Check which subdomains are alive
-
---https-only
-Only probe HTTPS (skip HTTP)
-
---ua <string>
-Custom User-Agent for live checks
-
--o, --output <file>
-Save results to a file
-
--w, --wordlist <file>
-Extract unique subdomain prefixes to a wordlist
-
---dates, -d
-Include first-seen dates from crt.name
-
---timeout <sec>
-Connection timeout (default: 5)
-
--h, --help
-Show help
-```
-
-## Examples
-
-```
-Basic enumeration
-./crt-scout.sh x.com
-
-Live check + save results
-./crt-scout.sh x.com --check -o live.txt
-
-Build a wordlist of subdomain prefixes
-./crt-scout.sh x.com -w x-words.txt
-
-Full power: live check + wordlist + custom UA
-./crt-scout.sh microsoft.com --check --https-only \
-  --ua "crt-scout/1.0" \
-  -o live-ms.txt \
-  -w ms-words.txt
-```
+# ⚠️ This is 100% vibecoded slop, if you run into any issues hit me up on X @glask1d :DDD
